@@ -6,19 +6,15 @@ Created on Mon Oct 14 09:14:32 2024
 """
 
 import streamlit as st
-from transformers import AutoTokenizer,AutoModelForCausalLM
-from transformers import pipeline
-import transformers
-import torch
 
+from huggingface_hub import InferenceClient
 
-model_name = "meta-llama/Llama-2-7b-hf"
+client = InferenceClient(api_key="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")
 
-tokenizer = AutoTokenizer.from_pretrained(model_name, token = "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")
-
-model = AutoModelForCausalLM.from_pretrained(model_name, token = "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")
-
-
-# Set up the Streamlit app
-st.title("LLaMA Chatbot")
-st.write("Talk to LLaMA!")
+for message in client.chat_completion(
+	model="meta-llama/Llama-2-7b-chat-hf",
+	messages=[{"role": "user", "content": "What is the capital of France?"}],
+	max_tokens=500,
+	stream=True,
+):
+    st.write(message.choices[0].delta.content, end="")
