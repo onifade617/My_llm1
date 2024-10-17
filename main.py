@@ -10,7 +10,7 @@ from transformers import pipeline
 from huggingface_hub import login
 
 # Hugging Face API Token (make sure to use your actual token)
-hf_token = "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"
+hf_token = "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"
 
 # Log in to Hugging Face using the token
 login(token=hf_token)
