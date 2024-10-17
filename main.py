@@ -6,10 +6,24 @@ Created on Mon Oct 14 09:14:32 2024
 """
 
 import streamlit as st
-import langchain
 from langchain_community.llms import Ollama
 
+# Initialize the Ollama model (assuming 'llama3' is a valid model name)
+llm = Ollama(model="llama3")
 
-llm = Ollama(model = "llama3")
+# Streamlit header
+st.header("Ask Ollama")
 
-st.write(llm.invoke("Tell me the president of Nigeria", stop=['<|eot_id|>']))
+# Text input for user prompt
+user_input = st.text_input("Ask a question:")
+
+# Button to submit the question
+if st.button("Submit"):
+    if user_input:
+        # Invoke the LLM with the user's question
+        response = llm.invoke(user_input, stop=['<|eot_id|>'])
+        
+        # Display the response in Streamlit
+        st.write(f"Response: {response}")
+    else:
+        st.write("Please enter a question.")
