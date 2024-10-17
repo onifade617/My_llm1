@@ -7,6 +7,7 @@ Created on Mon Oct 14 09:14:32 2024
 
 import streamlit as st
 from langchain_community.llms import Ollama
+import langchain
 
 # Initialize the Ollama model (assuming 'llama3' is a valid model name)
 llm = Ollama(model="llama3:7b")
