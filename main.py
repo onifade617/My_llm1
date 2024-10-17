@@ -7,9 +7,16 @@ Created on Mon Oct 14 09:14:32 2024
 
 import streamlit as st
 from transformers import pipeline
+from huggingface_hub import login
 
-# Initialize the text-generation pipeline with the Llama-2 model
-pipe = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
+# Hugging Face API Token (make sure to use your actual token)
+hf_token = "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"
+
+# Log in to Hugging Face using the token
+login(token=hf_token)
+
+# Initialize the text-generation pipeline with authenticated access
+pipe = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf", device="cpu")
 
 # Streamlit header
 st.header("Ask the Llama-2 Model")
