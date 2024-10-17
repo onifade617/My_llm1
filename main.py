@@ -6,15 +6,10 @@ Created on Mon Oct 14 09:14:32 2024
 """
 
 import streamlit as st
+import langchain
+from langchain_community.llms import ollama
 
-from huggingface_hub import InferenceClient
 
-client = InferenceClient(api_key="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")
+llm = ollama(model = "llama3")
 
-for message in client.chat_completion(
-	model="meta-llama/Llama-2-7b-chat-hf",
-	messages=[{"role": "user", "content": "What is the capital of France?"}],
-	max_tokens=500,
-	stream=True,
-):
-    st.write(message.choices[0].delta.content, end="")
+st.write(llm.invoke("Tell me the president of Nigeria", stop=['<|eot_id|>']))
