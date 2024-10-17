@@ -6,22 +6,13 @@ Created on Mon Oct 14 09:14:32 2024
 """
 
 import streamlit as st
-import requests
+from huggingface_hub import InferenceClient
 
-# Hugging Face API URL and model
-API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf"
-API_TOKEN = "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"
-
-# Function to query the Hugging Face API
-def query_huggingface_api(prompt):
-    headers = {"Authorization": f"Bearer {API_TOKEN}"}
-    payload = {"inputs": prompt}
-    
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
+# Initialize Hugging Face Inference Client with your API token
+client = InferenceClient(api_key="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")  # Replace with your actual Hugging Face API key
 
 # Streamlit header
-st.header("Ask a Question to Hugging Face Model")
+st.header("Ask Hugging Face Llama-2 Model")
 
 # Text input for user prompt
 user_input = st.text_input("Ask a question:")
@@ -29,13 +20,23 @@ user_input = st.text_input("Ask a question:")
 # Button to submit the question
 if st.button("Submit"):
     if user_input:
-        # Query the Hugging Face model
-        response = query_huggingface_api(user_input)
+        # Placeholder for the response to stream the content dynamically
+        response_placeholder = st.empty()
         
-        # Display the response in Streamlit
-        if "error" in response:
-            st.error(f"Error: {response['error']}")
-        else:
-            st.write(f"Response: {response}")
+        # Send the user's question to the Llama-2 model and stream the response
+        try:
+            response_text = ""
+            for message in client.chat_completion(
+                model="meta-llama/Llama-2-7b-chat-hf",  # Model to use
+                messages=[{"role": "user", "content": user_input}],
+                max_tokens=500,
+                stream=True,
+            ):
+                # Stream the response to the placeholder dynamically
+                content = message.choices[0].delta.get("content", "")
+                response_text += content
+                response_placeholder.text(response_text)
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
     else:
         st.write("Please enter a question.")
