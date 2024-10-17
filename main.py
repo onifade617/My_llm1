@@ -9,7 +9,7 @@ import streamlit as st
 from langchain_community.llms import Ollama
 
 # Initialize the Ollama model (assuming 'llama3' is a valid model name)
-llm = Ollama(model="llama3")
+llm = Ollama(model="llama3:7b")
 
 # Streamlit header
 st.header("Ask Ollama")
