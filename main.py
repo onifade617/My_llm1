@@ -16,7 +16,7 @@ hf_token = "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"
 login(token=hf_token)
 
 # Initialize the text-generation pipeline with authenticated access
-pipe = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf", device="cpu")
+pipe = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
 
 # Streamlit header
 st.header("Ask the Llama-2 Model")
