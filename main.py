@@ -7,9 +7,9 @@ Created on Mon Oct 14 09:14:32 2024
 
 import streamlit as st
 import langchain
-from langchain_community.llms import ollama
+from langchain_community.llms import Ollama
 
 
-llm = ollama(model = "llama3")
+llm = Ollama(model = "llama3")
 
 st.write(llm.invoke("Tell me the president of Nigeria", stop=['<|eot_id|>']))
