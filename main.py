@@ -9,7 +9,7 @@ import streamlit as st
 from transformers import pipeline
 
 # Initialize the text-generation pipeline with the Llama-2 model
-pipe = pipeline("text-generation", model="meta-llama/Llama-2-70b-chat-hf")
+pipe = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
 
 # Streamlit header
 st.header("Ask the Llama-2 Model")
